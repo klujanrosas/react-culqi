@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component, createElement } from 'react';
 import { Consumer, Provider } from './shared';
 
 const culqiMessages = {
@@ -10,7 +10,7 @@ const baseCulqiUrl = 'https://checkout.culqi.com';
 const culqiId = 'culqi-js';
 const culqiUrl = `${baseCulqiUrl}/js/v3`;
 
-class CulqiCheckout extends React.Component {
+class CulqiCheckout extends Component {
   state = {
     amount: this.props.amount || 0,
   };
@@ -134,9 +134,10 @@ class CulqiCheckout extends React.Component {
   };
 
   render() {
-    return (
-      <Provider value={this.getCulqiProps()}>{this.props.children}</Provider>
-    );
+    return createElement(Provider, {
+      children: this.props.children,
+      value: this.getCulqiProps(),
+    });
   }
 }
 
