@@ -6,18 +6,14 @@ const culqiMessages = {
   closed: 'checkout_cerrado',
 };
 
-const culqiId = 'culqi-js';
 const baseCulqiUrl = 'https://checkout.culqi.com';
+const culqiId = 'culqi-js';
 const culqiUrl = `${baseCulqiUrl}/js/v3`;
 
 class CulqiCheckout extends React.Component {
-  state = this.getInitialState();
-
-  getInitialState() {
-    const { amount } = this.props;
-
-    return { amount };
-  }
+  state = {
+    amount: this.props.amount || 0,
+  };
 
   getCulqiSettings = () => {
     const { amount } = this.state;
@@ -46,9 +42,7 @@ class CulqiCheckout extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { amount } = this.state;
-
-    if (prevState.amount && prevState.amount !== amount) {
+    if (prevState.amount !== this.state.amount) {
       this.setCulqiSettings(this.getCulqiSettings());
     }
   }
@@ -82,9 +76,7 @@ class CulqiCheckout extends React.Component {
     const { origin, data } = messageEvent;
     const { onClose, onError, onToken } = this.props;
 
-    if (origin !== baseCulqiUrl) {
-      return;
-    }
+    if (origin !== baseCulqiUrl) return;
 
     if (typeof data === 'string' && data === culqiMessages.closed) {
       onClose && onClose();
@@ -95,23 +87,16 @@ class CulqiCheckout extends React.Component {
     if (typeof data === 'object') {
       const { object } = data;
 
-      if (!object) {
-        return;
-      }
+      if (!object) return;
 
-      switch (object) {
-        case 'token':
-          this.setState({ token: data }, () => {
-            onToken && onToken(data);
-          });
-          break;
-        case 'error':
-          this.setState({ error: data }, () => {
-            onError && onError(data);
-          });
-          break;
-        default:
-          break;
+      if (object === 'token') {
+        this.setState({ token: data }, () => {
+          onToken && onToken(data);
+        });
+      } else if (object === 'error') {
+        this.setState({ error: data }, () => {
+          onError && onError(data);
+        });
       }
     }
   };
@@ -149,9 +134,9 @@ class CulqiCheckout extends React.Component {
   };
 
   render() {
-    const { children } = this.props;
-
-    return <Provider value={this.getCulqiProps()}>{children}</Provider>;
+    return (
+      <Provider value={this.getCulqiProps()}>{this.props.children}</Provider>
+    );
   }
 }
 
