@@ -1,6 +1,7 @@
 {
   "name": "react-culqi",
   "description": "Culqi integration library for React.",
+  "version": "1.0.0",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "author": "klujanrosas",
