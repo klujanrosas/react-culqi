@@ -15,7 +15,8 @@
     "dev": "rollup -c -w",
     "linc": "lint-staged",
     "lint": "eslint '**/*.js'",
-    "prepare": "yarn build"
+    "prepare": "yarn build",
+    "release": "semantic-release"
   },
   "husky": {
     "hooks": {
@@ -66,5 +67,7 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "semantic-release": "^15.9.15"
+  }
 }
