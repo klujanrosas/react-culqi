@@ -55,6 +55,7 @@ class CulqiCheckout extends Component {
     }
 
     window.removeEventListener('message', this.onCulqiEvent, false);
+    window.culqi = undefined;
   }
 
   initCulqi = () => {
@@ -66,6 +67,8 @@ class CulqiCheckout extends Component {
     requestAnimationFrame(() => {
       this.setCulqiSettings(culqiSettings);
     });
+    // Patch it so it doesn't throw on browser
+    window.culqi = () => {};
   };
 
   onCulqiLoad = e => {
@@ -127,7 +130,7 @@ class CulqiCheckout extends Component {
 
   render() {
     if (!this.props.publicKey) {
-      return 'Please pass along a `publicKey` prop.';
+      throw new Error('Please pass along a `publicKey` prop.');
     }
 
     return createElement(CulqiContext.Provider, {
