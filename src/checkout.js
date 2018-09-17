@@ -1,5 +1,5 @@
 import { Component, createElement } from 'react';
-import { Provider } from './context';
+import CulqiContext from './context';
 
 const culqiMessages = {
   welcome: 'checkout_bienvenido',
@@ -28,6 +28,8 @@ class CulqiCheckout extends Component {
   };
 
   componentDidMount() {
+    if (!this.props.publicKey) return;
+
     const script = document.createElement('script');
 
     script.id = culqiId;
@@ -123,20 +125,20 @@ class CulqiCheckout extends Component {
     this.setState({ amount: amount || 0 });
   };
 
-  getCulqiProps = () => {
-    return {
-      openCulqi: this.openCulqi,
-      setAmount: this.setAmount,
-      amount: this.state.amount,
-      token: this.state.token,
-      error: this.state.error,
-    };
-  };
-
   render() {
-    return createElement(Provider, {
+    if (!this.props.publicKey) {
+      return 'Please pass along a `publicKey` prop.';
+    }
+
+    return createElement(CulqiContext.Provider, {
       children: this.props.children,
-      value: this.getCulqiProps(),
+      value: {
+        openCulqi: this.openCulqi,
+        setAmount: this.setAmount,
+        amount: this.state.amount,
+        token: this.state.token,
+        error: this.state.error,
+      },
     });
   }
 }

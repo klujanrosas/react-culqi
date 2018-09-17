@@ -1,5 +1,5 @@
 import { createContext } from 'react';
 
-const { Consumer, Provider } = createContext({});
+const CulqiContext = createContext({});
 
-export { Consumer, Provider };
+export default CulqiContext;

@@ -5,10 +5,13 @@
   "module": "dist/index.esm.js",
   "author": "klujanrosas",
   "license": "MIT",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "commit": "git-cz",
-    "dev": "rollup -c -d",
     "build": "rollup -c",
+    "commit": "git-cz",
+    "dev": "rollup -c -w",
     "linc": "lint-staged",
     "lint": "eslint '**/*.js'"
   },
@@ -32,7 +35,6 @@
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@babel/plugin-proposal-class-properties": "^7.0.0",
-    "@babel/plugin-transform-runtime": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "babel-eslint": "^9.0.0",
     "commitizen": "^2.10.1",
@@ -59,6 +61,8 @@
     "rollup-plugin-node-resolve": "^3.4.0"
   },
   "peerDependencies": {
-    "react": "^16.0.0"
-  }
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  },
+  "dependencies": {}
 }
