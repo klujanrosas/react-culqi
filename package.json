@@ -1,11 +1,18 @@
 {
   "name": "react-culqi",
-  "description": "Culqi integration library for React.",
   "version": "1.0.0",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
+  "description": "Culqi integration library for React.",
   "author": "klujanrosas",
   "license": "MIT",
+  "contributors": [
+    "Kenneth Luján <klujanrosas@gmail.com> (https://github.com/klujanrosas/)"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/klujanrosas/react-culqi.git"
+  },
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
   "files": [
     "dist"
   ],
