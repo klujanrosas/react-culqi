@@ -1,8 +1,20 @@
 language: node_js
+
 node_js:
   - node
+
 before_script:
   - yarn
-script:
-  - yarn lint
-  #- yarn test
+
+jobs:
+  include:
+    - stage: test
+      script: yarn lint
+    - stage: release
+      script: yarn release
+      if: branch = master
+
+stages:
+  - test
+  - name: release
+    if: branch = master
